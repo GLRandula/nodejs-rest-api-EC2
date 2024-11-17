@@ -65,6 +65,9 @@ Follow these steps to set up the deployment pipeline for your Node.js REST API o
 
 Contributions to improve this CI/CD setup or add additional features are welcome! Feel free to submit pull requests or open issues.
 
+## Auto Deploy Node.js REST API on AWS EC2 | CI/CD Pipeline using GitHub Actions
+Documentation: [Click Here](https://medium.com/@saminchandeepa/auto-deploy-node-js-rest-api-on-aws-ec2-ci-cd-pipeline-using-github-actions-031be66824d1)
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
