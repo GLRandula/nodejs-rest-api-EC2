@@ -46,7 +46,84 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
+const getUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      res.status(404);
+      return next(new Error("User not found"));
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
+const updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, email } = req.body;
+
+    if (!name && !email) {
+      res.status(400);
+      return next(new Error("At least one field (name or email) is required to update"));
+    }
+
+    const user = await User.findByIdAndUpdate(
+      id,
+      { name, email },
+      { new: true, runValidators: true }
+    );
+
+    if (!user) {
+      res.status(404);
+      return next(new Error("User not found"));
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+      message: "User updated successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
+const deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByIdAndDelete(id);
+
+    if (!user) {
+      res.status(404);
+      return next(new Error("User not found"));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+};
+
 module.exports = {
   createNewUser,
   getAllUsers,
+  getUser,
+  updateUser,
+  deleteUser,
 };
